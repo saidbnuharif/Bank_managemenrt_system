@@ -1,0 +1,34 @@
+[
+    {
+        "name": "harif",
+        "balance": 12102152,
+        "history": [
+            "Deposit â‚¹237483",
+            "Sent â‚¹432654 to faslu",
+            "Withdrawal ₹45000"
+        ]
+    },
+    {
+        "name": "faslu",
+        "balance": 124214100,
+        "history": [
+            "Deposit â‚¹324692",
+            "Received â‚¹432654 from harif"
+        ]
+    },
+    {
+        "name": "aju",
+        "balance": 12345654,
+        "history": []
+    },
+    {
+        "name": "shibi",
+        "balance": 13245645,
+        "history": []
+    },
+    {
+        "name": "sippu",
+        "balance": 10587463,
+        "history": []
+    }
+]
