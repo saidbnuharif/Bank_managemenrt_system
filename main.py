@@ -1,20 +1,33 @@
 import json
 
-with open("Bank_app.json", "r") as file:
+with open("Bank_app.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 
 class Bank:
 
-    def __init__(self, name, balance):
+    def __init__(self, name, balance, history):
 
         self.name = name
         self.balance = balance
+        self.history = history
 
     def show_balance(self):
 
         print(f"Name: {self.name}")
         print(f"Balance: ₹{self.balance}")
+
+    def deposit(self, amount):
+        self.balance += amount
+
+    def withdraw(self, amount):
+        self.balance -= amount
+
+    def add_history(self, message):
+        self.history.append(message)
+
+    def remove_message(self):
+        return f"{self.name} account removed"
 
 
 def save_data():
@@ -40,13 +53,13 @@ while True:
     9.Sended
     10.Recieved
     11.Deposits
-    12.Exit                                       
+    12.Riches account     
+    13.Exit                                        
     """)
 
     choice = input("Enter choice: ")
 
     if choice == "1":
-
         name = input("Enter account holder name: ").lower()
         for account in data:
             if account["name"] == name:
@@ -65,7 +78,6 @@ while True:
             print("Account created")
 
     elif choice == "2":
-
         name = input("Enter account name: ")
         for account in data:
             if account["name"] == name:
@@ -74,25 +86,25 @@ while True:
                 except:
                     print("Amount must be numbers only")
                     continue
-
-                balance = account["balance"]
-                account["balance"] = balance + amount
-                account["history"].append(f"Deposit ₹{amount}")
+                bank = Bank(account["name"], account["balance"], account["history"])
+                bank.deposit(amount)
+                account["balance"] = bank.balance
+                bank.add_history(f"Deposit ₹{amount}")
+                account["balance"] = bank.balance
+                account["history"] = bank.history
                 save_data()
                 print("Amount deposit success")
                 break
 
     elif choice == "3":
-
         name = input("Enter account name: ").lower()
         for account in data:
             if account["name"] == name:
-                bank = Bank(name, account["balance"])
+                bank = Bank(account["name"], account["balance"])
                 bank.show_balance()
                 break
 
     elif choice == "4":
-
         name = input("Enter account holder name: ")
         for account in data:
             if account["name"] == name:
@@ -101,10 +113,11 @@ while True:
                 except:
                     print("Amount must be numbers only")
                     continue
-
                 Available_balance = account["balance"]
                 if Available_balance >= withdrawal_amount:
-                    account["balance"] = Available_balance - withdrawal_amount
+                    bank = Bank(account["name"], account["balance"])
+                    bank.withdraw(withdrawal_amount)
+                    account["balance"] = bank.balance
                     account["history"].append(f"Withdrawal ₹{withdrawal_amount}")
                     save_data()
                     print("Money withdrawed successfully")
@@ -113,7 +126,6 @@ while True:
                     print("Low balance")
 
     elif choice == "5":
-
         for account in data:
             if not data:
                 print("List is empty")
@@ -121,20 +133,18 @@ while True:
         print("Accounts fetched")
 
     elif choice == "6":
-
         name = input("Enter account name: ").lower()
         for account in data:
             if account["name"] == name:
+                bank = Bank(account["name"], account["balance"], account["history"])
                 data.remove(account)
                 save_data()
-                print("Account removed")
+                print(bank.remove_message())
                 break
-
         else:
             print("No account found")
 
     elif choice == "7":
-
         name = input("Enter account name: ")
         for account in data:
             if account["name"] == name:
@@ -144,7 +154,6 @@ while True:
                 for item in data:
                     if item["name"] == receiver_name:
                         receiver_balance = item["balance"]
-
                         try:
                             transferring_amount = int(
                                 input("Enter money to transfer: ")
@@ -152,7 +161,6 @@ while True:
                         except:
                             print("Amount must be numbers only")
                             continue
-
                         if balance >= transferring_amount:
                             item["balance"] = receiver_balance + transferring_amount
                             account["balance"] = balance - transferring_amount
@@ -228,6 +236,16 @@ while True:
             print("No user found")
 
     elif choice == "12":
+        if not data:
+            print("No accounts found")
+        else:
+            richest_account = data[0]
+            for account in data:
+                if account["balance"] > richest_account["balance"]:
+                    richest_account = account
+        print(f"Richest Account: {richest_account}")
+
+    elif choice == "13":
         break
 
     else:

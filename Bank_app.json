@@ -1,34 +1,31 @@
 [
     {
         "name": "harif",
-        "balance": 12102152,
+        "balance": 28332915555,
         "history": [
-            "Deposit â‚¹237483",
-            "Sent â‚¹432654 to faslu",
-            "Withdrawal ₹45000"
+            "Sent ₹734579 to faslu",
+            "Received ₹9384735 from faslu",
+            "Deposit ₹38744454",
+            "Deposit ₹3000000",
+            "Withdrawal ₹2343234",
+            "Deposit ₹200000000",
+            "Deposit ₹18236574812",
+            "Deposit ₹9845894635"
         ]
     },
     {
         "name": "faslu",
-        "balance": 124214100,
+        "balance": 230828776,
         "history": [
-            "Deposit â‚¹324692",
-            "Received â‚¹432654 from harif"
+            "Received ₹734579 from harif",
+            "Sent ₹9384735 to harif"
         ]
     },
     {
         "name": "aju",
-        "balance": 12345654,
-        "history": []
-    },
-    {
-        "name": "shibi",
-        "balance": 13245645,
-        "history": []
-    },
-    {
-        "name": "sippu",
-        "balance": 10587463,
-        "history": []
+        "balance": 19987499,
+        "history": [
+            "Sent ₹3485744 to sippu"
+        ]
     }
 ]
