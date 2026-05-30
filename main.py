@@ -1,13 +1,18 @@
 import json
 
+with open("Bank_app.json", "w") as file:
+    json.dump([], file)
+
+
 with open("Bank_app.json", "r", encoding="utf-8") as file:
     data = json.load(file)
 
 
 class Bank:
 
-    def __init__(self, name, balance, history):
+    def __init__(self, account_no, name, balance, history):
 
+        self.account_number = account_no
         self.name = name
         self.balance = balance
         self.history = history
@@ -60,22 +65,31 @@ while True:
     choice = input("Enter choice: ")
 
     if choice == "1":
-        name = input("Enter account holder name: ").lower()
-        for account in data:
-            if account["name"] == name:
-                print("Account already exists")
-                break
+        name = input("Enter accound holder name: ")
+        try:
+            balance = int(input("Enter the balance: "))
+        except:
+            print("Balance must be number only: ")
+        if not data:
+            account_no = 111110
         else:
-            try:
-                balance = int(input("Enter money to deposit: "))
-            except:
-                print("Balance must be numbers only")
-                continue
+            highest_account = sorted(
+                data, key=lambda account: account["Account_number"], reverse=True
+            )
+            print(highest_account)
+            account_no = highest_account[0]["Account_number"] + 1
 
-            bank = Bank(name, balance)
-            data.append({"name": bank.name, "balance": bank.balance, "history": []})
+            bank = Bank(account_no, name, balance, [])
+            data.append(
+                {
+                    "Account_number": bank.account_number,
+                    "name": bank.name,
+                    "balance": bank.balance,
+                    "history": bank.history,
+                }
+            )
             save_data()
-            print("Account created")
+        print("Account created successfully")
 
     elif choice == "2":
         name = input("Enter account name: ")
