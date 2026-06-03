@@ -1,18 +1,23 @@
 import json
-
-with open("Bank_app.json", "w") as file:
-    json.dump([], file)
+from datetime import datetime
 
 
-with open("Bank_app.json", "r", encoding="utf-8") as file:
-    data = json.load(file)
+def load_data():
+    try:
+        with open("Bank_app.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except ValueError:
+        return []
+
+
+data = load_data()
 
 
 class Bank:
 
     def __init__(self, account_no, name, balance, history):
 
-        self.account_number = account_no
+        self.Account_number = account_no
         self.name = name
         self.balance = balance
         self.history = history
@@ -23,7 +28,14 @@ class Bank:
         print(f"Balance: ₹{self.balance}")
 
     def deposit(self, amount):
+        if amount <= 0:
+            print("Please enter amount grater that zero")
+            return
         self.balance += amount
+        current_time = datetime.now().strftime("%I:%M:%S %p")
+        current_date = datetime.now().strftime("%d-%m-%Y")
+        self.history.append(f"₹{amount} deposited at {current_time} on {current_date}")
+        print("Amount deposited successfully")
 
     def withdraw(self, amount):
         self.balance -= amount
@@ -44,6 +56,23 @@ def save_data():
         print("data saved")
 
 
+# def find_account():
+#     try:
+#         account_number = int(input("Enter account number"))
+#     except ValueError:
+#         print("Account number must be numbers only")
+#         return
+#     for accounts in data:
+#         if accounts["Account_number"] == account_number:
+#             return accounts
+#     else:
+#         return "No account found"
+
+
+current_date = datetime.now().strftime("%d-%m-%Y")
+current_time = datetime.now().strftime("%I:%M:%S %p")
+
+
 while True:
 
     print("""
@@ -58,7 +87,7 @@ while True:
     9.Sended
     10.Recieved
     11.Deposits
-    12.Riches account     
+    12.Richest account     
     13.Exit                                        
     """)
 
@@ -70,45 +99,49 @@ while True:
             balance = int(input("Enter the balance: "))
         except:
             print("Balance must be number only: ")
+            continue
         if not data:
             account_no = 111110
         else:
-            highest_account = sorted(
-                data, key=lambda account: account["Account_number"], reverse=True
-            )
-            print(highest_account)
-            account_no = highest_account[0]["Account_number"] + 1
-
-            bank = Bank(account_no, name, balance, [])
-            data.append(
-                {
-                    "Account_number": bank.account_number,
-                    "name": bank.name,
-                    "balance": bank.balance,
-                    "history": bank.history,
-                }
-            )
-            save_data()
+            account_no = data[-1]["Account_number"] + 1
+        bank = Bank(account_no, name, balance, [])
+        data.append(
+            {
+                "Account_number": bank.Account_number,
+                "name": bank.name,
+                "balance": bank.balance,
+                "history": bank.history,
+            }
+        )
+        save_data()
         print("Account created successfully")
 
     elif choice == "2":
-        name = input("Enter account name: ")
-        for account in data:
-            if account["name"] == name:
+        try:
+            account_no = int(input("Enter account number: "))
+        except ValueError:
+            print("Account number must be numbers only")
+            continue
+        for accounts in data:
+            if accounts["Account_number"] == account_no:
                 try:
-                    amount = int(input("Enter amount to deposit: "))
+                    amount = float(input("Enter the amount to deposit: "))
                 except:
                     print("Amount must be numbers only")
                     continue
-                bank = Bank(account["name"], account["balance"], account["history"])
-                bank.deposit(amount)
-                account["balance"] = bank.balance
-                bank.add_history(f"Deposit ₹{amount}")
-                account["balance"] = bank.balance
-                account["history"] = bank.history
+                account = Bank(
+                    accounts["Account_number"],
+                    accounts["name"],
+                    accounts["balance"],
+                    accounts["history"],
+                )
+                account.deposit(amount)
+                accounts["balance"] = account.balance
+                accounts["history"] = account.history
                 save_data()
-                print("Amount deposit success")
                 break
+        else:
+            print("No account found")
 
     elif choice == "3":
         name = input("Enter account name: ").lower()
