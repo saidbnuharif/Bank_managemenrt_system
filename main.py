@@ -6,7 +6,11 @@ def load_data():
     try:
         with open("Bank_app.json", "r", encoding="utf-8") as file:
             return json.load(file)
-    except ValueError:
+
+    except FileNotFoundError:
+        return []
+
+    except json.JSONDecodeError:
         return []
 
 
@@ -77,8 +81,11 @@ class Bank:
         return f"{self.Account_number} account removed"
 
     def show_history(self):
-        print(f"{self.history}")
-        return
+        if not self.history:
+            print("No transaction history")
+            return
+        for history in self.history:
+            print(history)
 
 
 def save_data():
@@ -101,9 +108,9 @@ while True:
     6.Remove
     7.Transfer money
     8.Transaction            
-    9.Sended
+    9.Deposits
     10.Recieved
-    11.Deposits
+    11. withdrawn
     12.Richest account     
     13.Exit                                        
     """)
@@ -215,8 +222,13 @@ while True:
                 print(f"Account number: {accounts['Account_number']}")
                 print(f"Account name: {accounts['name']}")
                 print(f"Account balance: {accounts['balance']:,}")
-                print(f"Account history: {accounts['history']}")
-                print("-----------------------------------------")
+                print("Account history:")
+                if not accounts["history"]:
+                    print("No transactions")
+                else:
+                    for history in accounts["history"]:
+                        print(history)
+                        print("-----------------------------------------")
 
     elif choice == "6":
         try:
@@ -320,8 +332,8 @@ while True:
         for accounts in data:
             if accounts["Account_number"] == account_no:
                 for history in accounts["history"]:
-                   if "deposited" in history:
-                    print(history)
+                    if "deposited" in history:
+                        print(history)
 
     elif choice == "10":
         try:
@@ -332,9 +344,9 @@ while True:
         for accounts in data:
             if accounts["Account_number"] == account_no:
                 for history in accounts["history"]:
-                   if "received" in history:
-                    print(history)
-                    
+                    if "received" in history:
+                        print(history)
+
     elif choice == "11":
         try:
             account_no = int(input("Enter account number: "))
@@ -344,13 +356,27 @@ while True:
         for accounts in data:
             if accounts["Account_number"] == account_no:
                 for history in accounts["history"]:
-                   if "withdrawn" in history:
-                    print(history)
-                
+                    if "withdrawn" in history:
+                        print(history)
+
+    elif choice == "12":
+        if not data:
+            print("No accounts found")
+            continue
+        sorted_data = sorted(
+            data,
+            key=lambda account: account["balance"],
+            reverse=True,
+        )
+        richest_account = sorted_data[0]
+        print(
+            f"Richest account holder: {richest_account['name']} "
+            f"with balance ₹{richest_account['balance']:,}"
+        )
 
     elif choice == "13":
         break
 
-    else:        
+    else:
         print("Invalid input")
         continue
