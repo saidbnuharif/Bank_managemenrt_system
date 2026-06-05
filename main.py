@@ -50,8 +50,6 @@ class Bank:
         self.history.append(f"₹{amount} withdrawn at {current_time} on {current_date}")
         print("Amount withdrawn successfully")
 
-    from datetime import datetime
-
     def sendMoney(self, receiver, amount):
 
         if amount <= 0:
@@ -78,6 +76,10 @@ class Bank:
     def remove_message(self):
         return f"{self.Account_number} account removed"
 
+    def show_history(self):
+        print(f"{self.history}")
+        return
+
 
 def save_data():
 
@@ -86,19 +88,6 @@ def save_data():
         json.dump(data, file, indent=4, ensure_ascii=False)
 
         print("data saved")
-
-
-# def find_account():
-#     try:
-#         account_number = int(input("Enter account number"))
-#     except ValueError:
-#         print("Account number must be numbers only")
-#         return
-#     for accounts in data:
-#         if accounts["Account_number"] == account_number:
-#             return accounts
-#     else:
-#         return "No account found"
 
 
 while True:
@@ -297,17 +286,71 @@ while True:
         sender.sendMoney(receiver, amount)
         sender_account["balance"] = sender.balance
         sender_account["history"] = sender.history
-
         receiver_account["balance"] = receiver.balance
         receiver_account["history"] = receiver.history
-
         save_data()
-
         print("Transfer completed")
+
+    elif choice == "8":
+        try:
+            account_no = int(input("Enter account number: "))
+        except ValueError:
+            print("Account number must be numbers only")
+            continue
+        for accounts in data:
+            if accounts["Account_number"] == account_no:
+                account = Bank(
+                    accounts["Account_number"],
+                    accounts["name"],
+                    accounts["balance"],
+                    accounts["history"],
+                )
+                account.show_history()
+                print("History fetched successfully")
+                break
+        else:
+            print("No account found")
+
+    elif choice == "9":
+        try:
+            account_no = int(input("Enter account number: "))
+        except ValueError:
+            print("Account number must be numbers only")
+            continue
+        for accounts in data:
+            if accounts["Account_number"] == account_no:
+                for history in accounts["history"]:
+                   if "deposited" in history:
+                    print(history)
+
+    elif choice == "10":
+        try:
+            account_no = int(input("Enter account number: "))
+        except ValueError:
+            print("Account number must be numbers only")
+            continue
+        for accounts in data:
+            if accounts["Account_number"] == account_no:
+                for history in accounts["history"]:
+                   if "received" in history:
+                    print(history)
+                    
+    elif choice == "11":
+        try:
+            account_no = int(input("Enter account number: "))
+        except ValueError:
+            print("Account number must be numbers only")
+            continue
+        for accounts in data:
+            if accounts["Account_number"] == account_no:
+                for history in accounts["history"]:
+                   if "withdrawn" in history:
+                    print(history)
+                
 
     elif choice == "13":
         break
 
-    else:
+    else:        
         print("Invalid input")
         continue
