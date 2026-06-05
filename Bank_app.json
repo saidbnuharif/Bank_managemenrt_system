@@ -1,89 +1,49 @@
 [
-  {
-    "Account_number": 111110,
-    "name": "harif",
-    "balance": 987889442051.0,
-    "history": [
-      "₹456567657.0 deposited at 10:03:06 PM on 02-06-2026",
-      "₹485703478540.0 deposited at 10:19:13 PM on 02-06-2026"
-    ]
-  },
-  {
-    "Account_number": 111111,
-    "name": "faslu",
-    "balance": 4682176326.0,
-    "history": ["₹734783479.0 deposited at 10:03:06 PM on 02-06-2026"]
-  },
-  {
-    "Account_number": 111111,
-    "name": "aju",
-    "balance": 32982380410.0,
-    "history": ["₹33456546.0 deposited at 10:03:06 PM on 02-06-2026"]
-  },
-  {
-    "Account_number": 111111,
-    "name": "shibi",
-    "balance": 3.849739439486441e19,
-    "history": ["₹456546.0 deposited at 10:03:06 PM on 02-06-2026"]
-  },
-  {
-    "Account_number": 111112,
-    "name": "sippu",
-    "balance": 239874932473,
-    "history": []
-  },
-  {
-    "Account_number": 111112,
-    "name": "james",
-    "balance": 32947983274,
-    "history": []
-  },
-  {
-    "Account_number": 111112,
-    "name": "hello",
-    "balance": 387468734,
-    "history": []
-  },
-  {
-    "Account_number": 111113,
-    "name": "hello",
-    "balance": 8367346734,
-    "history": []
-  },
-  {
-    "Account_number": 111113,
-    "name": "wejkf",
-    "balance": 23986493284,
-    "history": []
-  },
-  {
-    "Account_number": 111113,
-    "name": "ashefaskdfh",
-    "balance": 2394839,
-    "history": []
-  },
-  {
-    "Account_number": 111114,
-    "name": "efdhf",
-    "balance": 4239578945,
-    "history": []
-  },
-  {
-    "Account_number": 111115,
-    "name": "sakfhsdf",
-    "balance": 23947982374,
-    "history": []
-  },
-  {
-    "Account_number": 111116,
-    "name": "sdhfkjdfh",
-    "balance": 29384798364,
-    "history": []
-  },
-  {
-    "Account_number": 111117,
-    "name": "sduff",
-    "balance": 238632684,
-    "history": []
-  }
+    {
+        "Account_number": 111110,
+        "name": "harif",
+        "balance": 7843261949.0,
+        "history": [
+            "₹34545.0 sent to faslu (111111) at 09:03:29 PM on 04-06-2026"
+        ]
+    },
+    {
+        "Account_number": 111111,
+        "name": "faslu",
+        "balance": 45289852315.0,
+        "history": [
+            "₹34545.0 received from harif (111110) at 09:03:29 PM on 04-06-2026",
+            "₹13212122.0 sent to aju (111112) at 09:04:20 PM on 04-06-2026",
+            "₹34564654.0 sent to aju (111112) at 09:05:12 PM on 04-06-2026",
+            "₹345435454.0 sent to aju (111112) at 09:05:16 PM on 04-06-2026",
+            "₹435345.0 sent to aju (111112) at 09:12:02 PM on 04-06-2026"
+        ]
+    },
+    {
+        "Account_number": 111112,
+        "name": "aju",
+        "balance": 3851993409.0,
+        "history": [
+            "₹13212122.0 received from faslu (111111) at 09:04:20 PM on 04-06-2026",
+            "₹34564654.0 received from faslu (111111) at 09:05:12 PM on 04-06-2026",
+            "₹345435454.0 received from faslu (111111) at 09:05:16 PM on 04-06-2026",
+            "₹435345.0 received from faslu (111111) at 09:12:02 PM on 04-06-2026"
+        ]
+    },
+    {
+        "Account_number": 111113,
+        "name": "shibi",
+        "balance": 83461786818.0,
+        "history": [
+            "₹3432434.0 received from sippu (111114) at 09:07:26 PM on 04-06-2026"
+        ]
+    },
+    {
+        "Account_number": 111114,
+        "name": "sippu",
+        "balance": 73495317409.0,
+        "history": [
+            "₹3432434.0 sent to shibi (111113) at 09:07:26 PM on 04-06-2026"
+        ]
+    }
 ]
